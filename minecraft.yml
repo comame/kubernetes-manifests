@@ -21,8 +21,8 @@ spec:
         app: minecraft
     spec:
       containers:
-        - image: minecraft-server
-          imagePullPolicy: Never
+        - image: registry.comame.dev/minecraft-server
+          imagePullPolicy: IfNotPresent
           name: minecraft
           ports:
             - containerPort: 25565

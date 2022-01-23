@@ -5,8 +5,14 @@ metadata:
   namespace: production
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: 5g
+    cert-manager.io/issuer: letsencrypt
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - registry.comame.dev
+      secretName: registry-comame-dev
   rules:
     - http:
         paths:
@@ -17,3 +23,13 @@ spec:
                 name: test-httpd
                 port:
                   number: 80
+    - host: registry.comame.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: registry
+                port:
+                  number: 5000

@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt
+  namespace: production
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: mail@comame.xyz
+    privateKeySecretRef:
+      name: letsencrypt
+
+    solvers:
+    - selector:
+        dnsNames:
+          - registry.comame.dev
+      dns01:
+        cloudflare:
+          email: mail@comame.xyz
+          apiTokenSecretRef:
+            name: cloudflare-apikey-comamedev
+            key: api-token
