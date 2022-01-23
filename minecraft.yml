@@ -30,6 +30,38 @@ spec:
           volumeMounts:
             - mountPath: /home/user
               name: volume
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: volume
+          hostPath:
+            path: /home/comame/minecraft
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-backup
+  namespace: minecraft
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minecraft-backup
+  template:
+    metadata:
+      labels:
+        app: minecraft-backup
+    spec:
+      containers:
+        - image: registry.comame.dev/minecraft-backup
+          name: minecraft-backup
+          volumeMounts:
+            - mountPath: /home/node/minecraft
+              name: volume
+      imagePullSecrets:
+        - name: regcred
       volumes:
         - name: volume
           hostPath:
