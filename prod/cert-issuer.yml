@@ -13,7 +13,7 @@ spec:
     solvers:
     - selector:
         dnsNames:
-          - registry.comame.dev
+          - "*.comame.dev"
       dns01:
         cloudflare:
           email: mail@comame.xyz
