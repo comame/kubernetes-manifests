@@ -29,6 +29,13 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/registry
               name: volume
+          env:
+            - name: REGISTRY_AUTH
+              value: htpasswd
+            - name: REGISTRY_AUTH_HTPASSWD_REALM
+              value: Registry Realm
+            - name: REGISTRY_AUTH_HTPASSWD_PATH
+              value: /var/lib/registry/htpasswd
       volumes:
         - name: volume
           hostPath:
