@@ -17,3 +17,14 @@ metadata:
 spec:
   type: ExternalName
   externalName: registry.registry.svc.cluster.local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-dashboard
+  namespace: production
+spec:
+  type: ExternalName
+  externalName: registry-dashboard.registry.svc.cluster.local

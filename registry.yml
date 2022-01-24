@@ -36,6 +36,8 @@ spec:
               value: Registry Realm
             - name: REGISTRY_AUTH_HTPASSWD_PATH
               value: /var/lib/registry/htpasswd
+            - name: REGISTRY_STORAGE_DELETE_ENABLED
+              value: 'true'
       volumes:
         - name: volume
           hostPath:
@@ -55,3 +57,44 @@ spec:
       protocol: TCP
   selector:
     app: registry
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry-dashboard
+  namespace: registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry-dashboard
+  template:
+    metadata:
+      labels:
+        app: registry-dashboard
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - image: registry.comame.dev/registry-dashboard:latest
+          name: registry-dashboard
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-dashboard
+  namespace: registry
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: registry-dashboard

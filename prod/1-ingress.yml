@@ -6,12 +6,16 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-body-size: 5g
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: https://dash.registry.comame.dev
+    nginx.ingress.kubernetes.io/cors-expose-headers: docker-content-digest
     cert-manager.io/issuer: letsencrypt
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
         - registry.comame.dev
+        - dash.registry.comame.dev
       secretName: registry-comame-dev
   rules:
     - http:
@@ -33,3 +37,13 @@ spec:
                 name: registry
                 port:
                   number: 5000
+    - host: dash.registry.comame.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: registry-dashboard
+                port:
+                  number: 80
