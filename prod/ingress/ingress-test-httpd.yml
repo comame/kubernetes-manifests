@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-test-httpd
-  namespace: test-httpd
+  namespace: production
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
@@ -17,3 +17,14 @@ spec:
                 name: test-httpd
                 port:
                   number: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-httpd
+  namespace: production
+spec:
+  type: ExternalName
+  externalName: test-httpd.test-httpd.svc.cluster.local
