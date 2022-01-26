@@ -20,3 +20,12 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-apikey-comamedev
             key: api-token
+    - selector:
+        dnsZones:
+          - comame.xyz
+      dns01:
+        cloudflare:
+          email: mail@comame.xyz
+          apiTokenSecretRef:
+            name: cloudflare-apikey-comamexyz
+            key: api-token

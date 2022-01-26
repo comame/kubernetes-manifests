@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-comame-xyz
+  namespace: production
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/issuer: letsencrypt
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - comame.xyz
+        - comame-xyz.comame.dev
+      secretName: comame-xyz
+  rules:
+    - host: comame.xyz
+      http: &comame-xyz
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: comame-xyz
+                port:
+                  number: 80
+    - host: comame-xyz.comame.dev
+      http: *comame-xyz
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: comame-xyz
+  namespace: production
+spec:
+  type: ExternalName
+  externalName: comame-xyz.comame-xyz.svc.cluster.local
