@@ -1,11 +1,11 @@
 ## Images - GitHub Repos
 
-- comame.xyz: comame/comame.xyz
-- ddns: comame/CloudFlare-DDNS
-- minecraft-backup: comame/minecraft-server-backup
-- minecraft-server: comame/minecraft-server
-- registry-dashboard: comame/registry-dashboard
-- voms-timeline: comame/voms-timeline
+- comame.xyz: [comame/comame.xyz](https://github.com/comame/comame.xyz)
+- ddns: [comame/CloudFlare-DDNS](https://github.com/comame/CloudFlare-DDNS)
+- minecraft-backup: [comame/minecraft-server-backup](https://github.com/comame/minecraft-server-backup)
+- minecraft-server: [comame/minecraft-server](https://github.com/comame/minecraft-server)
+- registry-dashboard: [comame/registry-dashboard](https://github.com/comame/registry-dashboard)
+- voms-timeline: [comame/voms-timeline](https://github.com/comame/voms-timeline)
 
 ## Secrets
 
