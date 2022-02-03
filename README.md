@@ -7,6 +7,10 @@
 - registry-dashboard: [comame/registry-dashboard](https://github.com/comame/registry-dashboard)
 - voms-timeline: [comame/voms-timeline](https://github.com/comame/voms-timeline)
 
+## External
+
+- [comame/vpnserver-status][https://github.com/comame/vpnserver-status]
+
 ## Secrets
 
 - production/cloudflare-apikey-comamexyz

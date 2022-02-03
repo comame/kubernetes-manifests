@@ -12,6 +12,8 @@ spec:
     - hosts:
         - comame.xyz
         - comame-xyz.comame.dev
+        - vpnserver.comame.xyz
+        - vpnserver.comame-xyz.comame.dev
         - voms-timeline.comame.xyz
         - voms-timeline.comame-xyz.comame.dev
       secretName: comame-xyz
@@ -28,6 +30,18 @@ spec:
                   number: 80
     - host: comame-xyz.comame.dev
       http: *comame-xyz
+    - host: vpnserver.comame.xyz
+      http: &vpnserver
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vpnserver-status
+                port:
+                  number: 2000
+    - host: vpnserver.comame-xyz.comame.dev
+      http: *vpnserver
     - host: voms-timeline.comame.xyz
       http: &voms-timeline
         paths:
@@ -62,3 +76,14 @@ metadata:
 spec:
   type: ExternalName
   externalName: voms-timeline.comame-xyz.svc.cluster.local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpnserver-status
+  namespace: production
+spec:
+  type: ExternalName
+  externalName: s1.comame.dev
