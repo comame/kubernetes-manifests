@@ -9,7 +9,7 @@
 
 ## External
 
-- [comame/vpnserver-status][https://github.com/comame/vpnserver-status]
+- [comame/vpnserver-status](https://github.com/comame/vpnserver-status)
 
 ## Secrets
 
