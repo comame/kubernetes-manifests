@@ -12,6 +12,8 @@ spec:
     - hosts:
         - comame.xyz
         - comame-xyz.comame.dev
+        - voms-timeline.comame.xyz
+        - voms-timeline.comame-xyz.comame.dev
       secretName: comame-xyz
   rules:
     - host: comame.xyz
@@ -26,6 +28,18 @@ spec:
                   number: 80
     - host: comame-xyz.comame.dev
       http: *comame-xyz
+    - host: voms-timeline.comame.xyz
+      http: &voms-timeline
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: voms-timeline
+                port:
+                  number: 80
+    - host: voms-timeline.comame-xyz.comame.dev
+      http: *voms-timeline
 
 ---
 
@@ -37,3 +51,14 @@ metadata:
 spec:
   type: ExternalName
   externalName: comame-xyz.comame-xyz.svc.cluster.local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: voms-timeline
+  namespace: production
+spec:
+  type: ExternalName
+  externalName: voms-timeline.comame-xyz.svc.cluster.local

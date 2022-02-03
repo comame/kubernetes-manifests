@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voms-timeline
+  namespace: comame-xyz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voms-timeline
+  template:
+    metadata:
+      labels:
+        app: voms-timeline
+    spec:
+      containers:
+        - image: registry.comame.dev/voms-timeline:latest
+          name: voms-timeline
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: PORT
+              value: '80'
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: voms-timeline-db
+                  key: password
+          envFrom:
+            - secretRef:
+                name: voms-timeline-env
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: voms-timeline
+  namespace: comame-xyz
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: voms-timeline
