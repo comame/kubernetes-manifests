@@ -21,6 +21,8 @@
     - GOOGLE_API_KEY
     - WEBSUB_HUB_SECRET
     - WEBSUB_VERIFY_TOKEN
+- comame-xyz/voms-timeline-db
+    - password
 - ddns/env (CloudFlare 認証用)
     - api-token
     - zone-id
