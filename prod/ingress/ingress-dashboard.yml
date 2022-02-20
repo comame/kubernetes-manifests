@@ -11,10 +11,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - dash.comame.dev
+        - dash.cluster.comame.dev
       secretName: dash-comame-dev
   rules:
-    - host: dash.comame.dev
+    - host: dash.cluster.comame.dev
       http:
         paths:
           - path: /
