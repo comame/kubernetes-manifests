@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kikoh-procon-sample
+  namespace: comame-xyz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kikoh-procon-sample
+  template:
+    metadata:
+      labels:
+        app: kikoh-procon-sample
+    spec:
+      containers:
+      - image: registry.comame.dev/kikoh-procon-sample:latest
+        name: kikoh-procon-sample
+        ports:
+        - containerPort: 80
+          protocol: TCP
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kikoh-procon-sample
+  namespace: comame-xyz
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: kikoh-procon-sample

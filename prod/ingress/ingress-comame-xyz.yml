@@ -16,6 +16,7 @@ spec:
         - vpnserver.comame-xyz.comame.dev
         - voms-timeline.comame.xyz
         - voms-timeline.comame-xyz.comame.dev
+        - kikoh-procon-sample.comame.xyz
       secretName: comame-xyz
   rules:
     - host: comame.xyz
@@ -54,6 +55,16 @@ spec:
                   number: 80
     - host: voms-timeline.comame-xyz.comame.dev
       http: *voms-timeline
+    - host: kikoh-procon-sample.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kikoh-procon-sample
+                port:
+                  number: 80
 
 ---
 
@@ -76,6 +87,17 @@ metadata:
 spec:
   type: ExternalName
   externalName: voms-timeline.comame-xyz.svc.cluster.local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kikoh-procon-sample
+  namespace: production
+spec:
+  type: ExternalName
+  externalName: kikoh-procon-sample.comame-xyz.svc.cluster.local
 
 ---
 

@@ -6,7 +6,8 @@ metadata:
 data:
   config: |
     address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-      - 192.168.0.150-192.168.0.200
+      - name: l2
+        protocol: layer2
+        addresses:
+          - 192.168.0.150-192.168.0.200
+        avoid-buggy-ips: true
