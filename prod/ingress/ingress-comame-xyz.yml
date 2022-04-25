@@ -11,16 +11,13 @@ spec:
   tls:
     - hosts:
         - comame.xyz
-        - comame-xyz.comame.dev
         - vpnserver.comame.xyz
-        - vpnserver.comame-xyz.comame.dev
         - voms-timeline.comame.xyz
-        - voms-timeline.comame-xyz.comame.dev
         - kikoh-procon-sample.comame.xyz
       secretName: comame-xyz
   rules:
     - host: comame.xyz
-      http: &comame-xyz
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -29,10 +26,8 @@ spec:
                 name: comame-xyz
                 port:
                   number: 80
-    - host: comame-xyz.comame.dev
-      http: *comame-xyz
     - host: vpnserver.comame.xyz
-      http: &vpnserver
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -41,10 +36,8 @@ spec:
                 name: vpnserver-status
                 port:
                   number: 2000
-    - host: vpnserver.comame-xyz.comame.dev
-      http: *vpnserver
     - host: voms-timeline.comame.xyz
-      http: &voms-timeline
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -53,8 +46,6 @@ spec:
                 name: voms-timeline
                 port:
                   number: 80
-    - host: voms-timeline.comame-xyz.comame.dev
-      http: *voms-timeline
     - host: kikoh-procon-sample.comame.xyz
       http:
         paths:
@@ -63,6 +54,16 @@ spec:
             backend:
               service:
                 name: kikoh-procon-sample
+                port:
+                  number: 80
+    - host: dotfiles.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dotfiles
                 port:
                   number: 80
 
@@ -98,6 +99,17 @@ metadata:
 spec:
   type: ExternalName
   externalName: kikoh-procon-sample.comame-xyz.svc.cluster.local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotfiles
+  namespace: production
+spec:
+  type: ExternalName
+  externalName: dotfiles.comame-xyz.svc.cluster.local
 
 ---
 
