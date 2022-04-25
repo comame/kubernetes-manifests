@@ -7,6 +7,7 @@
 - registry-dashboard: [comame/registry-dashboard](https://github.com/comame/registry-dashboard)
 - voms-timeline: [comame/voms-timeline](https://github.com/comame/voms-timeline)
 - kikoh-procon-sample: [comame/kikoh-procon-sample](https://github.com/comame/kikoh-procon-sample)
+- dotfiles: [comame/dotfiles}](https://github.com/comame/dotfiles)
 
 ## External
 
