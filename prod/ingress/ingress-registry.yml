@@ -11,7 +11,7 @@ metadata:
     nginx.ingress.kubernetes.io/cors-expose-headers: docker-content-digest
     cert-manager.io/issuer: letsencrypt
 spec:
-  ingressClassName: nginx
+  ingressClassName: internal
   tls:
     - hosts:
         - registry.comame.dev

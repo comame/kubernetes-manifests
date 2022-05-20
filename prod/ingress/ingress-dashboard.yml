@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     cert-manager.io/issuer: letsencrypt
 spec:
-  ingressClassName: nginx
+  ingressClassName: internal
   tls:
     - hosts:
         - dash.cluster.comame.dev
