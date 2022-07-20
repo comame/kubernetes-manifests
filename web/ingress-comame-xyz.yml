@@ -15,6 +15,7 @@ spec:
         - voms-timeline.comame.xyz
         - dotfiles.comame.xyz
         - chat.comame.xyz
+        - s.comame.xyz
       secretName: comame-xyz
   rules:
     - host: comame.xyz
@@ -77,6 +78,16 @@ spec:
                 name: chat
                 port:
                   number: 8080
+    - host: s.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shortlink
+                port:
+                  number: 8080
 
 ---
 
@@ -132,6 +143,17 @@ metadata:
 spec:
   type: ExternalName
   externalName: chat.comame-xyz.svc.cluster.local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: shortlink
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: shortlink.comame-xyz.svc.cluster.local
 
 ---
 

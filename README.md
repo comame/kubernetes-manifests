@@ -8,6 +8,8 @@
 - voms-timeline: [comame/voms-timeline](https://github.com/comame/voms-timeline)
 - kikoh-procon-sample: [comame/kikoh-procon-sample](https://github.com/comame/kikoh-procon-sample)
 - dotfiles: [comame/dotfiles](https://github.com/comame/dotfiles)
+- chat: [comame/chat.comame.xyz](https://github.com/comame/chat.comame.xyz)
+- shortlink: [comame/shortlink](https://github.com/comame/shortlink)
 
 ## External
 
