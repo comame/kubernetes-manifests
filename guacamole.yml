@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: guacamole
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guacamole
+  namespace: guacamole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guacamole
+  template:
+    metadata:
+      labels:
+        app: guacamole
+    spec:
+      containers:
+        - image: guacamole/guacamole
+          name: guacamole
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: GUACD_HOSTNAME
+              value: localhost
+            - name: MYSQL_HOSTNAME
+              value: mysql.comame.dev
+            - name: MYSQL_DATABASE
+              value: guacamole_db
+            - name: MYSQL_USER
+              value: guacamole
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db
+                  key: password
+        - image: guacamole/guacd
+          name: guacd
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: guacamole
+  namespace: guacamole
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: guacamole
