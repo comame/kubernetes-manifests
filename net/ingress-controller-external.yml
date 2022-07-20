@@ -1,29 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ingress-internal-controller
+  name: ingress-external-controller
   namespace: ingress-nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: ingress-internal
-      app.kubernetes.io/component: controller
-      app.kubernetes.io/instance: ingress-nginx
+      app: ingress-nginx-controller
+      class: external
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: ingress-internal
-        app.kubernetes.io/component: controller
-        app.kubernetes.io/instance: ingress-nginx
+        app: ingress-nginx-controller
+        class: external
     spec:
       containers:
         - name: controller
           image: k8s.gcr.io/ingress-nginx/controller:v1.1.1
           args:
             - /nginx-ingress-controller
-            - '--controller-class=k8s.io/internal-ingress-nginx'
-            - '--ingress-class=k8s.io/internal-nginx'
+            - '--controller-class=k8s.io/ingress-external'
           ports:
             - name: http
               containerPort: 80
@@ -52,9 +49,9 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: IngressClass
 metadata:
-  name: internal
+  name: external
 spec:
-  controller: k8s.io/internal-ingress-nginx
+  controller: k8s.io/ingress-external
 
 ---
 
@@ -63,11 +60,11 @@ kind: Service
 metadata:
   annotations:
   labels:
-    app.kubernetes.io/name: ingress-internal
-  name: ingress-internal
+    app: ingress-nginx-controller
+  name: ingress-external
   namespace: ingress-nginx
 spec:
-  loadBalancerIP: 192.168.0.190
+  loadBalancerIP: 192.168.0.200
   type: LoadBalancer
   ipFamilies:
     - IPv4
@@ -83,6 +80,5 @@ spec:
       targetPort: https
       appProtocol: https
   selector:
-    app.kubernetes.io/name: ingress-internal
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
+    app: ingress-nginx-controller
+    class: external
