@@ -15,9 +15,9 @@
 
 ## Secrets
 
-- production/cloudflare-apikey-comamexyz
+- web/cloudflare-apikey-comamexyz
     - api-token
-- production/cloudflare-apikey-comamedev
+- web/cloudflare-apikey-comamedev
     - api-token
 - comame-xyz/voms-timeline-env
     - GOOGLE_API_KEY

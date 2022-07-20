@@ -1,37 +1,36 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-dashboard
-  namespace: production
+  name: ingress-guacamole
+  namespace: web
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     cert-manager.io/issuer: letsencrypt
 spec:
   ingressClassName: internal
   tls:
     - hosts:
-        - dash.cluster.comame.dev
-      secretName: dash-comame-dev
+        - guacamole.comame.dev
+      secretName: guacamole-comame-dev
   rules:
-    - host: dash.cluster.comame.dev
+    - host: guacamole.comame.dev
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: dashboard
+                name: guacamole
                 port:
-                  number: 443
+                  number: 8080
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: dashboard
-  namespace: production
+  name: guacamole
+  namespace: web
 spec:
   type: ExternalName
-  externalName: kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local
+  externalName: guacamole.guacamole.svc.cluster.local
