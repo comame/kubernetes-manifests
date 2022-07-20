@@ -25,7 +25,7 @@
     - WEBSUB_VERIFY_TOKEN
 - comame-xyz/voms-timeline-db
     - password
-- ddns/env (CloudFlare 認証用)
+- ddns/env
     - api-token
     - zone-id
 - guacamole/db
