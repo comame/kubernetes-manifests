@@ -35,5 +35,5 @@
 
 ## Tools
 
-- [comame/deploy](https://github.com/comame/deploy)
+- [comame/cli-tools/deploy](https://github.com/comame/cli-tools/tree/main/deploy)
 - [comame/kube-log](https://github.com/comame/kube-log)
