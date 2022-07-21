@@ -10,9 +10,9 @@
 
 ### Old
 
-- minecraft-backup: [comame/minecraft-server-backup](https://github.com/comame/minecraft-server-backup)
-- minecraft-server: [comame/minecraft-server](https://github.com/comame/minecraft-server)
-- kikoh-procon-sample: [comame/kikoh-procon-sample](https://github.com/comame/kikoh-procon-sample)
+- minecraft-backup: [comame/minecraft-server-backup](https://github.com/comame/minecraft-server-backup) (Commit: c1535d9cb4363a8889935b721050fc2cbc657ed8)
+- minecraft-server: [comame/minecraft-server](https://github.com/comame/minecraft-server) (Commit: c1535d9cb4363a8889935b721050fc2cbc657ed8)
+- kikoh-procon-sample: [comame/kikoh-procon-sample](https://github.com/comame/kikoh-procon-sample) (Commit: c1535d9cb4363a8889935b721050fc2cbc657ed8)
 
 ## External
 
