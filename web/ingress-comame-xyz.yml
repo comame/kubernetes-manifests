@@ -48,16 +48,6 @@ spec:
                 name: voms-timeline
                 port:
                   number: 80
-    - host: kikoh-procon-sample.comame.xyz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: kikoh-procon-sample
-                port:
-                  number: 80
     - host: dotfiles.comame.xyz
       http:
         paths:
@@ -110,17 +100,6 @@ metadata:
 spec:
   type: ExternalName
   externalName: voms-timeline.comame-xyz.svc.cluster.local
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: kikoh-procon-sample
-  namespace: web
-spec:
-  type: ExternalName
-  externalName: kikoh-procon-sample.comame-xyz.svc.cluster.local
 
 ---
 
