@@ -1,4 +1,4 @@
-## Images - GitHub Repos
+## Apps
 
 - comame.xyz: [comame/comame.xyz](https://github.com/comame/comame.xyz)
 - ddns: [comame/CloudFlare-DDNS](https://github.com/comame/CloudFlare-DDNS)
