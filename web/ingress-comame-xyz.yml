@@ -58,16 +58,6 @@ spec:
                 name: dotfiles
                 port:
                   number: 80
-    - host: chat.comame.xyz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: chat
-                port:
-                  number: 8080
     - host: s.comame.xyz
       http:
         paths:
@@ -111,17 +101,6 @@ metadata:
 spec:
   type: ExternalName
   externalName: dotfiles.comame-xyz.svc.cluster.local
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: chat
-  namespace: web
-spec:
-  type: ExternalName
-  externalName: chat.comame-xyz.svc.cluster.local
 
 ---
 

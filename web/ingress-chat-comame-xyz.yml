@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-chat
+  namespace: web
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    cert-manager.io/issuer: letsencrypt
+spec:
+  ingressClassName: external
+  tls:
+    - hosts:
+        - chat.comame.xyz
+      secretName: chat-comame-xyz
+  rules:
+    - host: chat.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: chat
+                port:
+                  number: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: chat
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: chat.comame-xyz.svc.cluster.local
