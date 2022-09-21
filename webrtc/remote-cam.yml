@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: remote-cam
+  namespace: webrtc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: remote-cam
+  template:
+    metadata:
+      labels:
+        app: remote-cam
+    spec:
+      containers:
+      - image: registry.comame.dev/remote-cam:latest
+        name: remote-cam
+        ports:
+        - containerPort: 80
+          protocol: TCP
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: remote-cam-signaling
+  namespace: webrtc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: remote-cam-signaling
+  template:
+    metadata:
+      labels:
+        app: remote-cam-signaling
+    spec:
+      containers:
+      - image: registry.comame.dev/remote-cam-signaling:latest
+        name: remote-cam-signaling
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: remote-cam
+  namespace: webrtc
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: remote-cam
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: remote-cam-signaling
+  namespace: webrtc
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: remote-cam-signaling
