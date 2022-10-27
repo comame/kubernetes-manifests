@@ -1,0 +1,40 @@
+## Ingress
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-id
+  namespace: web
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/issuer: letsencrypt
+spec:
+  ingressClassName: external # or external
+  tls:
+    - hosts:
+        - accounts.comame.xyz # host
+      secretName: accounts.comame.xyz # host
+  rules:
+    - host: accounts.comame.xyz # host
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: id
+                port:
+                  number: 80
+
+---
+
+# Service for Ingress
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: id
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: id.id.svc.cluster.local

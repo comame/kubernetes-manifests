@@ -10,6 +10,8 @@
 - remote-cam: [comame/remote-cam](https://github.com/comame/remote-cam)
 - remote-cam: [comame/remote-cam](https://github.com/comame/remote-cam)
 - webrtc-stun: [comame/webrtc-stun](https://github.com/comame/webrtc-stun)
+- id: [comame/id](https://github.com/comame/id)
+- guacamole: [comame/guacamole](https://github.com/comame/guacamole)
 
 ### Old
 
@@ -24,20 +26,27 @@
 ## Secrets
 
 - web/cloudflare-apikey-comamexyz
-    - api-token
+  - api-token
 - web/cloudflare-apikey-comamedev
-    - api-token
+  - api-token
 - comame-xyz/voms-timeline-env
-    - GOOGLE_API_KEY
-    - WEBSUB_HUB_SECRET
-    - WEBSUB_VERIFY_TOKEN
+  - GOOGLE_API_KEY
+  - WEBSUB_HUB_SECRET
+  - WEBSUB_VERIFY_TOKEN
 - comame-xyz/voms-timeline-db
-    - password
+  - password
 - ddns/env
-    - api-token
-    - zone-id
+  - api-token
+  - zone-id
 - guacamole/db
-    - password
+  - password
+- id/id
+  - MYSQL_PASSWORD
+  - ADMIN_PASSWORD
+  - CLIENT_SECRET
+  - GOOGLE_CLIENT_ID
+  - GOOGLE_CLIENT_SECRET
+  - GOOGLE_REFRESH_TOKEN
 
 ## Tools
 

@@ -20,8 +20,10 @@ spec:
       labels:
         app: guacamole
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
-        - image: guacamole/guacamole
+        - image: registry.comame.dev/guacamole
           name: guacamole
           ports:
             - containerPort: 8080
@@ -35,6 +37,8 @@ spec:
               value: guacamole_db
             - name: MYSQL_USER
               value: guacamole
+            - name: GUACAMOLE_HOME
+              value: /home/guacamole/workdir
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
