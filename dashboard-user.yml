@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: dashboard-user
+  name: kubernetes-dashboard
   namespace: kubernetes-dashboard
 
 ---
@@ -9,14 +9,59 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: dashboard-user
+  name: kubernetes-dashboard
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: cluster-admin
 subjects:
     - kind: ServiceAccount
-      name: dashboard-user
+      name: kubernetes-dashboard
       namespace: kubernetes-dashboard
+
+---
+
+# Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: issuer
+  namespace: kubernetes-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: issuer
+  template:
+    metadata:
+      labels:
+        app: issuer
+    spec:
+      containers:
+      - image: registry.comame.dev/issuer:latest
+        name: issuer
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+# Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: issuer
+  namespace: kubernetes-dashboard
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: issuer
 
 # kubectl create token dashboard-user -n kubernetes-dashboard

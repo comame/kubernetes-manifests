@@ -12,6 +12,7 @@
 - webrtc-stun: [comame/webrtc-stun](https://github.com/comame/webrtc-stun)
 - id: [comame/id](https://github.com/comame/id)
 - guacamole: [comame/guacamole](https://github.com/comame/guacamole)
+- dashboard-token-issuer: [comame/dashboard-token-issuer](https://github.com/comame/dashboard-token-issuer)
 
 ### Old
 
