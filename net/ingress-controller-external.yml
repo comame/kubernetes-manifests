@@ -21,6 +21,7 @@ spec:
           args:
             - /nginx-ingress-controller
             - '--controller-class=k8s.io/ingress-external'
+            - '--configmap=$(POD_NAMESPACE)/ingress-nginx-controller'
           ports:
             - name: http
               containerPort: 80

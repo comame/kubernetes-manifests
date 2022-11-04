@@ -13,6 +13,7 @@
 - id: [comame/id](https://github.com/comame/id)
 - guacamole: [comame/guacamole](https://github.com/comame/guacamole)
 - dashboard-token-issuer: [comame/dashboard-token-issuer](https://github.com/comame/dashboard-token-issuer)
+- vmq: [mentai-may/VocaloidMusicQuiz](https://github.com/mentai-mayo/VocaloidMusicQuiz/)
 
 ### Old
 
@@ -23,6 +24,7 @@
 ## External
 
 - [comame/vpnserver-status](https://github.com/comame/vpnserver-status)
+- Jenkins
 
 ## Secrets
 
