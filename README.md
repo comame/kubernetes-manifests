@@ -1,3 +1,11 @@
+# この世のすべて
+
+`comame.xyz` で動いているもの大体すべて
+
+その他の情報は [ここ](https://blog.comame.xyz/tags/Kubernetes)
+
+物理サーバの設定ファイルたちは [comame/infra (private)](https://github.com/comame/infra)
+
 ## Apps
 
 - comame.xyz: [comame/comame.xyz](https://github.com/comame/comame.xyz)
@@ -24,7 +32,6 @@
 ## External
 
 - [comame/vpnserver-status](https://github.com/comame/vpnserver-status)
-- Jenkins
 
 ## Secrets
 
