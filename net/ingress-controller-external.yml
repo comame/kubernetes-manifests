@@ -65,6 +65,7 @@ metadata:
   name: ingress-external
   namespace: ingress-nginx
 spec:
+  externalTrafficPolicy: Local
   loadBalancerIP: 192.168.0.200
   type: LoadBalancer
   ipFamilies:

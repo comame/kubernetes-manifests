@@ -24,7 +24,7 @@ spec:
               service:
                 name: jenkins
                 port:
-                  number: 30000
+                  number: 8080
 
 ---
 
@@ -52,7 +52,7 @@ spec:
               service:
                 name: jenkins
                 port:
-                  number: 30000
+                  number: 8080
 
 
 ---
@@ -66,4 +66,4 @@ metadata:
   namespace: web
 spec:
   type: ExternalName
-  externalName: s1.comame.dev
+  externalName: jenkins-service.jenkins.svc.cluster.local
