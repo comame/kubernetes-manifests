@@ -1,13 +1,8 @@
-apiVersion: v1
-kind: ConfigMap
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
 metadata:
   namespace: metallb-system
   name: config
-data:
-  config: |
-    address-pools:
-      - name: l2
-        protocol: layer2
-        addresses:
-          - 192.168.0.150-192.168.0.200
-        avoid-buggy-ips: true
+spec:
+  addresses:
+    - 192.168.0.150-192.168.0.200

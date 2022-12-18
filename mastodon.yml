@@ -95,8 +95,6 @@ spec:
      protocol: TCP
   selector:
     app: mastodon
-  type: LoadBalancer
-  loadBalancerIP: 192.168.0.162
 
 ---
 
@@ -114,6 +112,10 @@ data:
   REDIS_HOST: redis.comame.dev
   REDIS_PORT: '6379'
   REDIS_PASSWORD:
+  REDIS_NAMESPACE: mastodon.comame.xyz
+  ES_ENABLED: 'true'
+  ES_HOST: elasticsearch.comame.dev
+  ES_PORT: '9200'
   SMTP_SERVER: localhost
   SMTP_PORT: '25'
   SMTP_AUTH_METHOD: none

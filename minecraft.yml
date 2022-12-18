@@ -11,7 +11,7 @@ metadata:
   name: minecraft
   namespace: minecraft
 spec:
-  replicas: 1
+  replicas: 0
   strategy:
     type: Recreate
   selector:
@@ -54,7 +54,7 @@ metadata:
   name: minecraft-backup
   namespace: minecraft
 spec:
-  replicas: 1
+  replicas: 0
   strategy:
     type: Recreate
   selector:
