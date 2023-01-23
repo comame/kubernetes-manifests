@@ -82,6 +82,33 @@ spec:
 
 ---
 
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-comame-xyz-norewrite
+  namespace: web
+  annotations:
+    cert-manager.io/issuer: letsencrypt
+spec:
+  ingressClassName: external
+  tls:
+    - hosts:
+        - discordbot.comame.xyz
+      secretName: comame-xyz-norewrite
+  rules:
+    - host: discordbot.comame.xyz
+      http:
+        paths:
+          - path: /high-school-fleet
+            pathType: Prefix
+            backend:
+              service:
+                name: discordbot-haifuri
+                port:
+                  number: 8080
+
+---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -145,3 +172,14 @@ metadata:
 spec:
   type: ExternalName
   externalName: s1.comame.dev
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: discordbot-haifuri
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: discordbot-haifuri.comame-xyz.svc.cluster.local
