@@ -16,6 +16,7 @@ spec:
         - dotfiles.comame.xyz
         - chat.comame.xyz
         - s.comame.xyz
+        - dev-8080.comame.xyz
       secretName: comame-xyz
   rules:
     - host: comame.xyz
@@ -66,6 +67,16 @@ spec:
             backend:
               service:
                 name: shortlink
+                port:
+                  number: 8080
+    - host: dev-8080.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dev
                 port:
                   number: 8080
 
@@ -123,3 +134,14 @@ metadata:
 spec:
   type: ExternalName
   externalName: pi.comame.dev
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: s1.comame.dev
