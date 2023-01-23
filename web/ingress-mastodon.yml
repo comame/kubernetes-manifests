@@ -6,6 +6,7 @@ metadata:
   namespace: web
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
     cert-manager.io/issuer: letsencrypt
 spec:
   ingressClassName: external # or external

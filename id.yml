@@ -27,53 +27,9 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
-          env:
-            - name: MYSQL_USER
-              value: id
-            - name: MYSQL_DATABASE
-              value: id
-            - name: MYSQL_HOST
-              value: mysql.comame.dev
-            - name: REDIS_HOST
-              value: redis.comame.dev
-            - name: REDIS_PREFIX
-              value: id.comame.dev
-            - name: ADMIN_USER
-              value: admin
-            - name: HOST
-              value: https://accounts.comame.xyz
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: id
-                  key: MYSQL_PASSWORD
-            - name: ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: id
-                  key: ADMIN_PASSWORD
-            - name: CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: id
-                  key: CLIENT_SECRET
-            - name: GOOGLE_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: id
-                  key: GOOGLE_CLIENT_ID
-            - name: GOOGLE_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: id
-                  key: GOOGLE_CLIENT_SECRET
-            - name: GOOGLE_REFRESH_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: id
-                  key: GOOGLE_REFRESH_TOKEN
-            - name: MAIL_FROM
-              value: accounts@comame.xyz
+          envFrom:
+            - secretRef:
+                name: id
       imagePullSecrets:
         - name: regcred
 

@@ -113,7 +113,7 @@ data:
   REDIS_PORT: '6379'
   REDIS_PASSWORD:
   REDIS_NAMESPACE: mastodon.comame.xyz
-  ES_ENABLED: 'true'
+  ES_ENABLED: 'false'
   ES_HOST: elasticsearch.comame.dev
   ES_PORT: '9200'
   SMTP_SERVER: localhost
