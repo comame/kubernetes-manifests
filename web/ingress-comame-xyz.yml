@@ -94,6 +94,7 @@ spec:
   tls:
     - hosts:
         - discordbot.comame.xyz
+        - comame.xyz
       secretName: comame-xyz-norewrite
   rules:
     - host: discordbot.comame.xyz
@@ -106,6 +107,16 @@ spec:
                 name: discordbot-haifuri
                 port:
                   number: 8080
+    - host: comame.xyz
+      http:
+        paths:
+          - path: /crazybuz
+            pathType: Prefix
+            backend:
+              service:
+                name: crazybuz
+                port:
+                  number: 80
 
 ---
 
@@ -183,3 +194,15 @@ metadata:
 spec:
   type: ExternalName
   externalName: discordbot-haifuri.comame-xyz.svc.cluster.local
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: crazybuz
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: crazybuz.comame-xyz.svc.cluster.local

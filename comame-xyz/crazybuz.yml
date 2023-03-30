@@ -1,0 +1,42 @@
+# Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crazybuz
+  namespace: comame-xyz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crazybuz
+  template:
+    metadata:
+      labels:
+        app: crazybuz
+    spec:
+      containers:
+      - image: registry.comame.dev/crazybuz:latest
+        name: crazybuz
+        ports:
+        - containerPort: 80
+          protocol: TCP
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+# Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: crazybuz
+  namespace: comame-xyz
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: crazybuz
