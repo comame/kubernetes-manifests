@@ -15,41 +15,13 @@ spec:
     - host: dash.cluster.comame.dev
       http:
         paths:
-          - path: /openid
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: issuer
                 port:
                   number: 8080
-
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ingress-dashboard-dashboard
-  namespace: web
-  annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    cert-manager.io/issuer: letsencrypt
-spec:
-  ingressClassName: internal
-  tls:
-    - hosts:
-        - dash.cluster.comame.dev
-      secretName: dash-comame-dev
-  rules:
-    - host: dash.cluster.comame.dev
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: dashboard
-                port:
-                  number: 443
 
 ---
 
