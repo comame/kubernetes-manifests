@@ -33,40 +33,8 @@
 
 - [comame/vpnserver-status](https://github.com/comame/vpnserver-status)
 
-## Secrets
-
-- web/cloudflare-apikey-comamexyz
-  - api-token
-- web/cloudflare-apikey-comamedev
-  - api-token
-- comame-xyz/voms-timeline-env
-  - GOOGLE_API_KEY
-  - WEBSUB_HUB_SECRET
-  - WEBSUB_VERIFY_TOKEN
-- comame-xyz/voms-timeline-db
-  - password
-- ddns/env
-  - api-token
-  - zone-id
-- guacamole/db
-  - password
-- id/id
-  - MYSQL_PASSWORD
-  - ADMIN_PASSWORD
-  - CLIENT_SECRET
-  - GOOGLE_CLIENT_ID
-  - GOOGLE_CLIENT_SECRET
-  - GOOGLE_REFRESH_TOKEN
-- mastodon/env
-  - DB_PASS
-  - DB_USER
-  - OIDC_CLIENT_SECRET
-  - OTP_SECRET
-  - SECRET_KEY_BASE
-  - VAPID_PRIVATE_KEY
-  - VAPID_PUBLIC_KEY
-
 ## Tools
 
 - [comame/cli-tools/deploy](https://github.com/comame/cli-tools/tree/main/deploy)
 - [comame/kube-log](https://github.com/comame/kube-log)
+- [comame/kube-omit-secret](https://github.com/comame/kube-omit-secret)
