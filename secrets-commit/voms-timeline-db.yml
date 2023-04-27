@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+    password: ~omit
+kind: Secret
+metadata:
+    name: voms-timeline-db
+    namespace: comame-xyz
+type: Opaque
+
