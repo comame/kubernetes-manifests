@@ -17,6 +17,7 @@ spec:
         - chat.comame.xyz
         - s.comame.xyz
         - dev-8080.comame.xyz
+        - amq-db.comame.xyz
       secretName: comame-xyz
   rules:
     - host: comame.xyz
@@ -67,6 +68,16 @@ spec:
             backend:
               service:
                 name: shortlink
+                port:
+                  number: 8080
+    - host: amq-db.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: amq-db
                 port:
                   number: 8080
     - host: dev-8080.comame.xyz
@@ -197,7 +208,6 @@ spec:
 
 ---
 
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -206,3 +216,14 @@ metadata:
 spec:
   type: ExternalName
   externalName: crazybuz.comame-xyz.svc.cluster.local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: amq-db
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: amq-db.comame-xyz.svc.cluster.local

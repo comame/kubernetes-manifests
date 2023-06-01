@@ -1,0 +1,42 @@
+# Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amq-db
+  namespace: comame-xyz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amq-db
+  template:
+    metadata:
+      labels:
+        app: amq-db
+    spec:
+      containers:
+      - image: registry.comame.dev/amq-db:latest
+        name: amq-db
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+# Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: amq-db
+  namespace: comame-xyz
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: amq-db
