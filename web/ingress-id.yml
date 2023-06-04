@@ -6,13 +6,14 @@ metadata:
   name: ingress-id
   namespace: web
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    # nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/issuer: letsencrypt
 spec:
   ingressClassName: external # or external
   tls:
     - hosts:
         - accounts.comame.xyz # host
+        - dash.accounts.comame.xyz
       secretName: accounts.comame.xyz # host
   rules:
     - host: accounts.comame.xyz # host
@@ -25,6 +26,16 @@ spec:
                 name: id
                 port:
                   number: 80
+    - host: dash.accounts.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: id
+                port:
+                  number: 8081
 
 ---
 
