@@ -3,6 +3,7 @@ data:
     ADMIN_PASSWORD: ~omit
     ADMIN_USER: ~omit
     CLIENT_SECRET: ~omit
+    DASH_HOST: ~omit
     GOOGLE_GMAIL_CLIENT_ID: ~omit
     GOOGLE_GMAIL_CLIENT_SECRET: ~omit
     GOOGLE_GMAIL_REFRESH_TOKEN: ~omit
