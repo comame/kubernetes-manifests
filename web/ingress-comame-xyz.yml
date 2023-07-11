@@ -18,7 +18,6 @@ spec:
         - s.comame.xyz
         - dev-8080.comame.xyz
         - amq-db.comame.xyz
-        - livestream.comame.xyz
       secretName: comame-xyz
   rules:
     - host: comame.xyz
@@ -91,16 +90,6 @@ spec:
                 name: dev
                 port:
                   number: 8080
-    - host: livestream.comame.xyz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: livestream-hls
-                port:
-                  number: 8080
 
 ---
 
@@ -117,6 +106,7 @@ spec:
     - hosts:
         - discordbot.comame.xyz
         - comame.xyz
+        - livestream.comame.xyz
       secretName: comame-xyz-norewrite
   rules:
     - host: discordbot.comame.xyz
@@ -139,6 +129,23 @@ spec:
                 name: crazybuz
                 port:
                   number: 80
+    - host: livestream.comame.xyz
+      http:
+        paths:
+          - path: /hls
+            pathType: Prefix
+            backend:
+              service:
+                name: livestream-hls
+                port:
+                  number: 8080
+          - path: /viewer
+            pathType: Prefix
+            backend:
+              service:
+                name: livestream-viewer
+                port:
+                  number: 8080
 
 ---
 
@@ -249,3 +256,14 @@ metadata:
 spec:
   type: ExternalName
   externalName: livestream-http.livestream.svc.cluster.local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: livestream-viewer
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: livestream-viewer.livestream.svc.cluster.local

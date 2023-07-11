@@ -33,6 +33,49 @@ spec:
         - name: regcred
 
 ---
+# Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: livestream-viewer
+  namespace: livestream
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: livestream-viewer
+  template:
+    metadata:
+      labels:
+        app: livestream-viewer
+    spec:
+      containers:
+        - image: registry.comame.dev/livestream-viewer:latest
+          name: livestream-viewer
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      imagePullSecrets:
+        - name: regcred
+
+---
+# Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: livestream-viewer
+  namespace: livestream
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: livestream-viewer
+
+---
 # Service
 
 apiVersion: v1
