@@ -18,6 +18,7 @@ spec:
         - s.comame.xyz
         - dev-8080.comame.xyz
         - amq-db.comame.xyz
+        - livestream.comame.xyz
       secretName: comame-xyz
   rules:
     - host: comame.xyz
@@ -88,6 +89,16 @@ spec:
             backend:
               service:
                 name: dev
+                port:
+                  number: 8080
+    - host: livestream.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: livestream-hls
                 port:
                   number: 8080
 
@@ -227,3 +238,14 @@ metadata:
 spec:
   type: ExternalName
   externalName: amq-db.comame-xyz.svc.cluster.local
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: livestream-hls
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: livestream-http.livestream.svc.cluster.local
