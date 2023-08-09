@@ -92,7 +92,6 @@ spec:
                   number: 8080
 
 ---
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -132,6 +131,27 @@ spec:
     - host: livestream.comame.xyz
       http:
         paths:
+          - path: /__idproxy/callback
+            pathType: Prefix
+            backend:
+              service:
+                name: id-proxy
+                port:
+                  number: 8080
+          - path: /hls/music-radio-20230711
+            pathType: Prefix
+            backend:
+              service:
+                name: id-proxy
+                port:
+                  number: 8080
+          - path: /viewer/music-radio-20230711
+            pathType: Prefix
+            backend:
+              service:
+                name: id-proxy
+                port:
+                  number: 8080
           - path: /hls
             pathType: Prefix
             backend:
@@ -148,7 +168,6 @@ spec:
                   number: 8080
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -159,7 +178,6 @@ spec:
   externalName: comame-xyz.comame-xyz.svc.cluster.local
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -170,7 +188,6 @@ spec:
   externalName: voms-timeline.comame-xyz.svc.cluster.local
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -181,7 +198,6 @@ spec:
   externalName: dotfiles.comame-xyz.svc.cluster.local
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -192,7 +208,6 @@ spec:
   externalName: shortlink.comame-xyz.svc.cluster.local
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -203,7 +218,6 @@ spec:
   externalName: pi.comame.dev
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -214,7 +228,6 @@ spec:
   externalName: s1.comame.dev
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -225,7 +238,6 @@ spec:
   externalName: discordbot-haifuri.comame-xyz.svc.cluster.local
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -236,7 +248,6 @@ spec:
   externalName: crazybuz.comame-xyz.svc.cluster.local
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -247,7 +258,6 @@ spec:
   externalName: amq-db.comame-xyz.svc.cluster.local
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -258,7 +268,6 @@ spec:
   externalName: livestream-http.livestream.svc.cluster.local
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
