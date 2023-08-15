@@ -131,7 +131,7 @@ spec:
     - host: livestream.comame.xyz
       http:
         paths:
-          - path: /__idproxy/callback
+          - path: /__idproxy
             pathType: Prefix
             backend:
               service:
