@@ -4,7 +4,6 @@ metadata:
   name: minecraft
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,6 +25,13 @@ spec:
         - image: registry.comame.dev/minecraft-server:1.20.1
           imagePullPolicy: IfNotPresent
           name: minecraft
+          command:
+            - /jre/bin/java
+            - -Dlog4j2.formatMsgNoLookups=true
+            - -Xmx6144M
+            - -jar
+            - /server.jar
+            - nogui
           ports:
             - containerPort: 25565
               protocol: TCP
@@ -47,7 +53,6 @@ spec:
             path: /home/comame/minecraft-1.20.1
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -79,7 +84,6 @@ spec:
             path: /home/comame/minecraft-1.20.1
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
