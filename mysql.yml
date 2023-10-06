@@ -6,7 +6,7 @@ metadata:
 ---
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql
   namespace: mysql
@@ -21,7 +21,7 @@ spec:
         app: mysql
     spec:
       containers:
-        - image: mysql:latest
+        - image: mysql:8.1.0
           name: mysql
           ports:
             - containerPort: 3306
