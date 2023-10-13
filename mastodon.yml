@@ -6,7 +6,7 @@ metadata:
 ---
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mastodon
   namespace: mastodon
@@ -75,8 +75,6 @@ spec:
         - name: media
           hostPath:
             path: /home/comame/mastodon-media
-  strategy:
-    type: Recreate
 
 ---
 

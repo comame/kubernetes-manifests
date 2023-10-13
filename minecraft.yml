@@ -5,14 +5,12 @@ metadata:
 
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: minecraft
   namespace: minecraft
 spec:
-  replicas: 1
-  strategy:
-    type: Recreate
+  replicas: 0
   selector:
     matchLabels:
       app: minecraft
@@ -54,14 +52,12 @@ spec:
 
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: minecraft-backup
   namespace: minecraft
 spec:
-  replicas: 1
-  strategy:
-    type: Recreate
+  replicas: 0
   selector:
     matchLabels:
       app: minecraft-backup
