@@ -67,7 +67,7 @@ spec:
         - name: log-collector
           image: registry.comame.dev/kube-log:latest
           securityContext:
-            privileged: true
+            runAsUser: 0
           volumeMounts:
             - mountPath: /var/log/containers
               name: logdir
@@ -81,8 +81,6 @@ spec:
               value: Asia/Tokyo
             - name: IGNORE_NS
               value: cert-manager,ingress-nginx,kube-flannel,kube-system,kubernetes-dashboard,metallb-system,registry
-      securityContext:
-        runAsUser: 0
       volumes:
         - name: logdir
           hostPath:
