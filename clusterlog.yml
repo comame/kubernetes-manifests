@@ -80,7 +80,7 @@ spec:
             - name: TZ
               value: Asia/Tokyo
             - name: IGNORE_NS
-              value: cert-manager,ingress-nginx,kube-flannel,kube-system,kubernetes-dashboard,metallb-system,registry
+              value: cert-manager,clusterlog,ingress-nginx,livestream,kube-flannel,kube-system,kubernetes-dashboard,metallb-system,registry,mysql,postgres,redis,test-httpd
       volumes:
         - name: logdir
           hostPath:
