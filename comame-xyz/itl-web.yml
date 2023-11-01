@@ -1,0 +1,49 @@
+# Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: itl-web
+  namespace: comame-xyz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: itl-web
+  template:
+    metadata:
+      labels:
+        app: itl-web
+    spec:
+      containers:
+      - image: registry.comame.dev/itl-web:latest
+        name: itl-web
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+          - mountPath: /root/.ar
+            name: artworks
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: artworks
+          hostPath:
+            path: /home/comame/itl-web-artwork
+
+---
+
+# Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: itl-web
+  namespace: comame-xyz
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: itl-web

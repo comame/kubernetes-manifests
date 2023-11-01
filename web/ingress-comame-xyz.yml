@@ -106,6 +106,7 @@ spec:
         - discordbot.comame.xyz
         - comame.xyz
         - livestream.comame.xyz
+        - music.comame.xyz
       secretName: comame-xyz-norewrite
   rules:
     - host: discordbot.comame.xyz
@@ -164,6 +165,37 @@ spec:
             backend:
               service:
                 name: livestream-viewer
+                port:
+                  number: 8080
+    - host: music.comame.xyz
+      http:
+        paths:
+          - path: /manifest.json
+            pathType: Prefix
+            backend:
+              service:
+                name: itl-web
+                port:
+                  number: 8080
+          - path: /icon.svg
+            pathType: Prefix
+            backend:
+              service:
+                name: itl-web
+                port:
+                  number: 8080
+          - path: /icon.png
+            pathType: Prefix
+            backend:
+              service:
+                name: itl-web
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: id-proxy
                 port:
                   number: 8080
 
@@ -276,3 +308,13 @@ metadata:
 spec:
   type: ExternalName
   externalName: livestream-viewer.livestream.svc.cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: itl-web
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: itl-web.comame-xyz.svc.cluster.local
