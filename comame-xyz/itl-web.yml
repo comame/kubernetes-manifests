@@ -24,6 +24,15 @@ spec:
         volumeMounts:
           - mountPath: /root/.ar
             name: artworks
+        env:
+          - name: SMB_HOST
+            value: d1.comame.dev:445
+          - name: SMB_USER
+            value: read-itunes
+          - name: SMB_PASSWORD
+            value: read-itunes
+          - name: SMB_SHARENAME
+            value: iTunes
       imagePullSecrets:
         - name: regcred
       volumes:
