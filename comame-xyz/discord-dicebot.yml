@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discord-dicebot
+  namespace: comame-xyz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord-dicebot
+  template:
+    metadata:
+      labels:
+        app: discord-dicebot
+    spec:
+      containers:
+      - image: registry.comame.dev/discord-dicebot-go:latest
+        name: discord-dicebot-go
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        envFrom:
+        - secretRef:
+            name: discord-dicebot
+      - image: registry.comame.dev/discord-dicebot-ruby:latest
+        name: discord-dicebot-ruby
+        ports:
+        - containerPort: 8081
+          protocol: TCP
+      imagePullSecrets:
+      - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: discord-dicebot
+  namespace: comame-xyz
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: discord-dicebot

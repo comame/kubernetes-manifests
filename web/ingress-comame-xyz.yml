@@ -119,6 +119,13 @@ spec:
                 name: discordbot-haifuri
                 port:
                   number: 8080
+          - path: /dicebot
+            pathType: Prefix
+            backend:
+              service:
+                name: discord-dicebot
+                port:
+                  number: 8080
     - host: comame.xyz
       http:
         paths:
@@ -170,6 +177,13 @@ spec:
     - host: music.comame.xyz
       http:
         paths:
+          - path: /sw.js
+            pathType: Prefix
+            backend:
+              service:
+                name: itl-web
+                port:
+                  number: 8080
           - path: /manifest.json
             pathType: Prefix
             backend:
