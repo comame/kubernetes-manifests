@@ -33,6 +33,37 @@ spec:
       imagePullSecrets:
         - name: regcred
 
+
+---
+# Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sshproxy
+  namespace: id-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sshproxy
+  template:
+    metadata:
+      labels:
+        app: sshproxy
+    spec:
+      containers:
+        - image: registry.comame.dev/sshproxy:latest
+          name: sshproxy
+          ports:
+            - containerPort: 22
+              protocol: UDP
+            - containerPort: 2222
+              protocol: UDP
+      imagePullSecrets:
+        - name: regcred
+
+
 ---
 # Service
 
@@ -59,3 +90,24 @@ metadata:
 spec:
   type: ExternalName
   externalName: id-proxy.id-proxy.svc.cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sshproxy
+  namespace: id-proxy
+spec:
+  ports:
+  - port: 2222
+    targetPort: 22
+    protocol: TCP
+    name: tcp
+  - port: 2222
+    targetPort: 22
+    protocol: UDP
+    name: udp
+  selector:
+    app: sshproxy
+  type: LoadBalancer
+  loadBalancerIP: 192.168.0.151

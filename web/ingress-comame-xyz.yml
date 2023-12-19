@@ -287,6 +287,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: discord-dicebot
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: discord-dicebot.comame-xyz.svc.cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: crazybuz
   namespace: web
 spec:
