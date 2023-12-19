@@ -14,6 +14,7 @@ spec:
         app: discord-dicebot
     spec:
       containers:
+      # https://github.com/comame/discord-dicebot
       - image: registry.comame.dev/discord-dicebot-go:latest
         name: discord-dicebot-go
         ports:
@@ -22,6 +23,7 @@ spec:
         envFrom:
         - secretRef:
             name: discord-dicebot
+      # https://github.com/comame/discord-dicebot
       - image: registry.comame.dev/discord-dicebot-ruby:latest
         name: discord-dicebot-ruby
         ports:

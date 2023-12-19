@@ -14,6 +14,7 @@ spec:
         app: dotfiles
     spec:
       containers:
+      # https://github.com/comame/dotfiles
       - image: registry.comame.dev/dotfiles:latest
         name: dotfiles
         ports:

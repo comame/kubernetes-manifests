@@ -78,6 +78,7 @@ spec:
       imagePullSecrets:
         - name: regcred
       containers:
+        # https://github.com/comame/registry-dashboard
         - image: registry.comame.dev/registry-dashboard:latest
           name: registry-dashboard
           ports:

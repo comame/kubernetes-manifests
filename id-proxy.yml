@@ -22,6 +22,7 @@ spec:
         app: id-proxy
     spec:
       containers:
+        # https://github.com/comame/id-proxy
         - image: registry.comame.dev/id-proxy:latest
           name: id-proxy
           ports:
@@ -53,6 +54,7 @@ spec:
         app: sshproxy
     spec:
       containers:
+        # TODO: まだ GitHub にレポジトリが存在しない
         - image: registry.comame.dev/sshproxy:latest
           name: sshproxy
           ports:

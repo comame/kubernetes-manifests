@@ -14,6 +14,7 @@ spec:
         app: shortlink
     spec:
       containers:
+        # https://github.com/comame/shortlink
         - image: registry.comame.dev/shortlink:latest
           name: shortlink
           ports:

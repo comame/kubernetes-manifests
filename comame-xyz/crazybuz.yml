@@ -16,6 +16,7 @@ spec:
         app: crazybuz
     spec:
       containers:
+      # https://github.com/comame/CRAZYBUZ
       - image: registry.comame.dev/crazybuz:latest
         name: crazybuz
         ports:

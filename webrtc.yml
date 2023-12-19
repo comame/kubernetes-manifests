@@ -21,6 +21,7 @@ spec:
         app: remote-cam
     spec:
       containers:
+      # https://github.com/comame/remote-cam
       - image: registry.comame.dev/remote-cam:latest
         name: remote-cam
         ports:
@@ -47,6 +48,7 @@ spec:
         app: remote-cam-signaling
     spec:
       containers:
+      # https://github.com/comame/remote-cam-signaling
       - image: registry.comame.dev/remote-cam-signaling:latest
         name: remote-cam-signaling
         ports:

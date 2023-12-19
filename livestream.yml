@@ -22,6 +22,7 @@ spec:
         app: livestream
     spec:
       containers:
+        # https://github.com/comame/livestream
         - image: registry.comame.dev/livestream:latest
           name: livestream
           ports:
@@ -51,6 +52,7 @@ spec:
         app: livestream-viewer
     spec:
       containers:
+        # https://github.com/comame/livestream/tree/main/viewer
         - image: registry.comame.dev/livestream-viewer:latest
           name: livestream-viewer
           ports:

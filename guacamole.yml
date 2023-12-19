@@ -23,6 +23,7 @@ spec:
       imagePullSecrets:
         - name: regcred
       containers:
+        # https://github.com/comame/guacamole
         - image: registry.comame.dev/guacamole
           name: guacamole
           ports:

@@ -16,6 +16,7 @@ spec:
         app: itl-web
     spec:
       containers:
+      # https://github.com/comame/itl-web
       - image: registry.comame.dev/itl-web:latest
         name: itl-web
         ports:

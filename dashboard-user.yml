@@ -39,6 +39,7 @@ spec:
         app: issuer
     spec:
       containers:
+      # https://github.com/comame/dashboard-token-issuer
       - image: registry.comame.dev/issuer:latest
         name: issuer
         ports:

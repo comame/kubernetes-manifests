@@ -23,6 +23,7 @@ spec:
       imagePullSecrets:
         - name: regcred
       containers:
+        # https://github.com/comame/CloudFlare-DDNS
         - image: registry.comame.dev/ddns
           name: ddns
           env:
@@ -38,4 +39,3 @@ spec:
                   key: zone-id
             - name: DOMAIN
               value: s1.comame.xyz
-

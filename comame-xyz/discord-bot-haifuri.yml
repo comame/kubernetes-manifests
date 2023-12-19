@@ -14,6 +14,7 @@ spec:
         app: discord-bot-haifuri
     spec:
       containers:
+        # https://github.com/comame/haifuri-bot
         - image: registry.comame.dev/discord-bot-haifuri:latest
           name: discord-bot-haifuri
           ports:

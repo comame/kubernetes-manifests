@@ -14,6 +14,7 @@ spec:
         app: comame-xyz
     spec:
       containers:
+      # https://github.com/comame/comame.xyz
       - image: registry.comame.dev/comame-xyz:latest
         name: comame-xyz
         ports:

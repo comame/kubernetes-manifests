@@ -14,6 +14,7 @@ spec:
         app: voms-timeline
     spec:
       containers:
+        # https://github.com/comame/VOMS-Timeline
         - image: registry.comame.dev/voms-timeline:latest
           name: voms-timeline
           ports:
