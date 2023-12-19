@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+    .dockerconfigjson: ~omit
+kind: Secret
+metadata:
+    name: regcred
+    namespace: id-proxy
+type: kubernetes.io/dockerconfigjson
+
