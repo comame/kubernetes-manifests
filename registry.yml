@@ -21,7 +21,7 @@ spec:
         app: registry
     spec:
       containers:
-        - image: registry:2
+        - image: registry:2.8.3
           name: registry
           ports:
             - containerPort: 5000
