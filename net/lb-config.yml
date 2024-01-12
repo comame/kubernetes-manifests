@@ -6,3 +6,16 @@ metadata:
 spec:
   addresses:
     - 192.168.0.150-192.168.0.200
+
+---
+
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2adv
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - config
+  interfaces:
+    - enp3s0
