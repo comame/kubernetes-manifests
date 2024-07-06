@@ -96,6 +96,7 @@ spec:
         - comame.xyz
         - livestream.comame.xyz
         - music.comame.xyz
+        - redash.comame.xyz
       secretName: comame-xyz-norewrite
   rules:
     - host: discordbot.comame.xyz
@@ -194,6 +195,16 @@ spec:
                 name: itl-web
                 port:
                   number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: id-proxy
+                port:
+                  number: 8080
+    - host: redash.comame.xyz
+      http:
+        paths:
           - path: /
             pathType: Prefix
             backend:
