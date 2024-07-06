@@ -21,7 +21,9 @@ spec:
         app: mysql
     spec:
       containers:
-        - image: mysql@sha256:4a4e5e2a19aab7a67870588952e8f401e17a330466ecfc55c9acf51196da5bd0 # 8.4.0
+        # Redash が mysql_native_password にしか対応していないが、
+        # MySQL 9 で mysql_native_password が削除されたことにより、アップグレードできない
+        - image: mysql:8.4.1
           name: mysql
           ports:
             - containerPort: 3306
@@ -34,10 +36,26 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: volume
+            - mountPath: /etc/mysql/conf.d
+              name: config
       volumes:
         - name: volume
           hostPath:
             path: /home/comame/mysql
+        - name: config
+          configMap:
+            name: mysql-config
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+  namespace: mysql
+data:
+  custom.cnf: |+
+    [mysqld]
+    mysql_native_password=on
 
 ---
 
