@@ -97,6 +97,7 @@ spec:
         - livestream.comame.xyz
         - music.comame.xyz
         - redash.comame.xyz
+        - note.comame.xyz
       secretName: comame-xyz-norewrite
   rules:
     - host: discordbot.comame.xyz
@@ -210,6 +211,16 @@ spec:
             backend:
               service:
                 name: id-proxy
+                port:
+                  number: 8080
+    - host: note.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: note-comame-xyz
                 port:
                   number: 8080
 
@@ -332,3 +343,13 @@ metadata:
 spec:
   type: ExternalName
   externalName: itl-web.comame-xyz.svc.cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: note-comame-xyz
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: note-comame-xyz.comame-xyz.svc.cluster.local

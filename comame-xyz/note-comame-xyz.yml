@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: note-comame-xyz
+  namespace: comame-xyz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: note-comame-xyz
+  template:
+    metadata:
+      labels:
+        app: note-comame-xyz
+    spec:
+      containers:
+      - image: registry.comame.dev/note-comame-xyz:latest
+        name: note-comame-xyz
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: note-comame-xyz
+  namespace: comame-xyz
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: note-comame-xyz
