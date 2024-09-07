@@ -19,6 +19,16 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
+        env:
+          - name: OIDC_CLIENT_ID
+            value: note.comame.xyz
+          - name: OIDC_ISSUER
+            value: https://accounts.comame.xyz
+          - name: ORIGIN
+            value: https://note.comame.xyz
+        envFrom:
+          - secretRef:
+              name: note-comame-xyz
       imagePullSecrets:
         - name: regcred
 
