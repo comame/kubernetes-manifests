@@ -20,6 +20,8 @@ spec:
         - containerPort: 8080
           protocol: TCP
         env:
+          - name: TZ
+            value: Asia/Tokyo
           - name: OIDC_CLIENT_ID
             value: note.comame.xyz
           - name: OIDC_ISSUER
