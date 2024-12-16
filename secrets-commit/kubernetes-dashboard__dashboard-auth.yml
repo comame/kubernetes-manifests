@@ -1,9 +1,0 @@
-apiVersion: v1
-data:
-    IDP_CLIENT_SECRET: ~omit
-kind: Secret
-metadata:
-    name: dashboard-auth
-    namespace: kubernetes-dashboard
-type: Opaque
-
