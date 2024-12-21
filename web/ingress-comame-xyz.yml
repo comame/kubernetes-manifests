@@ -14,8 +14,6 @@ spec:
         - vpnserver.comame.xyz
         - voms-timeline.comame.xyz
         - dotfiles.comame.xyz
-        - chat.comame.xyz
-        - s.comame.xyz
         - dev-8080.comame.xyz
       secretName: comame-xyz
   rules:
@@ -59,16 +57,6 @@ spec:
                 name: dotfiles
                 port:
                   number: 80
-    - host: s.comame.xyz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: shortlink
-                port:
-                  number: 8080
     - host: dev-8080.comame.xyz
       http:
         paths:
@@ -96,7 +84,6 @@ spec:
         - comame.xyz
         - livestream.comame.xyz
         - music.comame.xyz
-        - redash.comame.xyz
         - note.comame.xyz
       secretName: comame-xyz-norewrite
   rules:
@@ -203,16 +190,6 @@ spec:
                 name: id-proxy
                 port:
                   number: 8080
-    - host: redash.comame.xyz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: id-proxy
-                port:
-                  number: 8080
     - host: note.comame.xyz
       http:
         paths:
@@ -253,16 +230,6 @@ metadata:
 spec:
   type: ExternalName
   externalName: dotfiles.comame-xyz.svc.cluster.local
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: shortlink
-  namespace: web
-spec:
-  type: ExternalName
-  externalName: shortlink.comame-xyz.svc.cluster.local
 
 ---
 apiVersion: v1
