@@ -4,10 +4,15 @@ metadata:
   name: bluearchive-twitter
   namespace: comame-xyz
 spec:
+  # エラーが多いので止めておく
+  suspend: true
   schedule: "*/15 * * * *"
   timeZone: Asia/Tokyo
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      backoffLimit: 3
       template:
         spec:
           containers:
