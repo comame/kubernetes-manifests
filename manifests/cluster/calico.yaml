@@ -4,10 +4,11 @@ metadata:
   name: default
 spec:
   calicoNetwork:
+    bgp: Enabled
     ipPools:
     - name: default-ipv4-ippool
       blockSize: 26
       cidr: 10.244.0.0/16
-      encapsulation: VXLANCrossSubnet
+      encapsulation: IPIP
       natOutgoing: Enabled
       nodeSelector: all()
