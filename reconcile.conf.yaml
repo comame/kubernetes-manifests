@@ -1,0 +1,25 @@
+controlKinds:
+  - apps/v1:Deployment
+  - apps/v1:StatefulSet
+  - batch/v1:CronJob
+  - cert-manager.io/v1:Issuer
+  - metallb.io/v1beta1:IPAddressPool
+  - metallb.io/v1beta1:L2Advertisement
+  - networking.k8s.io/v1:Ingress
+  - networking.k8s.io/v1:IngressClass
+  - operator.tigera.io/v1:Installation
+  - v1:ConfigMap
+  - v1:Namespace
+  - v1:Service
+excludeKinds:
+  - v1:Secret
+excludeNamespaces:
+  - calico-apiserver
+  - calico-system
+  - cert-manager
+  - ingress-nginx
+  - kube-node-lease
+  - kube-public
+  - kube-system
+  - metallb-system
+  - tigera-operator
