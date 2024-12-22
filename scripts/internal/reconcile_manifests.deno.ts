@@ -1,11 +1,3 @@
-/**
- * マニフェストの状態とクラスタの状態を一致させる
- *
- * 方針:
- * - サーバにだけあってマニフェストは存在しないリソースは消す
- * - それ以外は kubectl apply すれば反映されるので apply する
- */
-
 // deno-lint-ignore-file no-explicit-any
 
 import * as fs from "jsr:@std/fs";
@@ -18,6 +10,12 @@ const CONFIG_PATH = "reconcile.conf.yaml";
 // ====
 
 async function main() {
+  if (isApplyMode()) {
+    console.error("APPLYING");
+  } else {
+    console.error(`dry run`);
+  }
+
   await assertConfigKindsExhaustive();
 
   const config = loadConfig();
@@ -141,14 +139,30 @@ async function main() {
     (v) => v !== null
   );
 
-  console.log(serverSideClusterScopedResources);
-  console.log(serverSideNamespacedResources);
+  // サーバにだけあるリソースを削除する
+  for (const r of serverSideClusterScopedResources) {
+    await deleteKubernetesNamespacedResource(
+      `${r!.apiVersion}:${r!.kind}`,
+      r!.name,
+      "default"
+    );
+  }
+  for (const r of serverSideNamespacedResources) {
+    await deleteKubernetesNamespacedResource(
+      `${r!.apiVersion}:${r!.kind}`,
+      r!.name,
+      r!.namespace
+    );
+  }
+
+  // 最後にマニフェストを apply する
+  await applyKubernetesManifets();
 }
 
 // ====
 
 /** --plan なのか --apply なのかを判定する */
-function _isApplyMode(): boolean {
+function isApplyMode(): boolean {
   const { plan, apply } = flags.parse(Deno.args);
   if (plan) {
     return false;
@@ -351,7 +365,7 @@ async function getKubernetesNamespacedResources(
     resourceName += "." + apiGroup;
   }
 
-  const cmd = new Deno.Command("kubectl", {
+  const cmd = new MyCommand("kubectl", {
     args: ["get", resourceName, `-n=${namespace}`, "-o=yaml"],
   });
   const out = await execCommand(cmd);
@@ -369,7 +383,7 @@ async function getKubernetesClsuterScopedResources(
 }
 
 async function getKubernetesNamespaces(): Promise<string[]> {
-  const cmd = new Deno.Command("kubectl", {
+  const cmd = new MyCommand("kubectl", {
     args: ["get", "ns", "-o=yaml"],
   });
   const out = await execCommand(cmd);
@@ -379,7 +393,7 @@ async function getKubernetesNamespaces(): Promise<string[]> {
 }
 
 async function getKubernetesClusterScopedAPIResources(): Promise<string[]> {
-  const cmd = new Deno.Command("kubectl", {
+  const cmd = new MyCommand("kubectl", {
     args: ["api-resources", "--namespaced=false", "--no-headers"],
   });
   const out = await execCommand(cmd);
@@ -397,6 +411,64 @@ async function getKubernetesClusterScopedAPIResources(): Promise<string[]> {
     }
   }
   return rs;
+}
+
+async function deleteKubernetesNamespacedResource(
+  fullKind: string,
+  name: string,
+  namespace: string
+): Promise<void> {
+  const apiVersion = fullKind.split(":")[0];
+  const kind = fullKind.split(":")[1];
+
+  sanitizeResourceName(apiVersion);
+  sanitizeResourceName(kind);
+  sanitizeResourceName(namespace);
+
+  let resourceName = kind;
+  const apiGroup = apiVersion.split("/")[0];
+  if (apiGroup !== "v1") {
+    resourceName += "." + apiGroup;
+  }
+
+  const cmd = new MyCommand("kubectl", {
+    args: ["delete", resourceName, name, `-n=${namespace}`],
+  });
+
+  if (isApplyMode()) {
+    console.error(cmd.toString());
+    console.error(await execCommand(cmd));
+    return;
+  }
+
+  console.error(cmd.toString());
+}
+
+async function applyKubernetesManifets(): Promise<void> {
+  const cmd = new MyCommand("kubectl", {
+    args: ["apply", `-f=${MANIFEST_DIR}`, "--recursive"],
+  });
+
+  if (isApplyMode()) {
+    console.error(cmd.toString());
+    console.error(await execCommand(cmd));
+    return;
+  }
+
+  console.error(cmd.toString());
+}
+
+class MyCommand extends Deno.Command {
+  constructor(private command: string, private options: Deno.CommandOptions) {
+    super(command, options);
+  }
+
+  override toString(): string {
+    if (this.options.args) {
+      return `${this.command} ${this.options.args.join(" ")}`;
+    }
+    return this.command;
+  }
 }
 
 try {
