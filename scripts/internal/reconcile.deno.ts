@@ -48,7 +48,7 @@ async function main() {
       // Kubernetes によって自動生成されるリソースを除外
       for (const r of resources.items) {
         if (
-          r.metadata.name === "kube-root-ca.crt" &&
+          r.metadata!.name === "kube-root-ca.crt" &&
           r.kind === "ConfigMap" &&
           r.apiVersion === "v1"
         ) {
@@ -56,8 +56,8 @@ async function main() {
         }
         // Kubernetes によって自動生成されるリソースを除外
         if (
-          r.metadata.name === "kubernetes" &&
-          r.metadata.namespace === "default" &&
+          r.metadata!.name === "kubernetes" &&
+          r.metadata!.namespace === "default" &&
           r.kind === "Service" &&
           r.apiVersion == "v1"
         ) {
@@ -65,8 +65,8 @@ async function main() {
         }
 
         serverSideNamespacedResources.push({
-          name: r.metadata.name,
-          namespace: r.metadata.namespace,
+          name: r.metadata!.name,
+          namespace: r.metadata!.namespace!,
           kind: r.kind,
           apiVersion: r.apiVersion,
         });
@@ -85,7 +85,7 @@ async function main() {
       if (
         r.kind === "Namespace" &&
         r.apiVersion === "v1" &&
-        config.excludeNamespaces.includes(r.metadata.name)
+        config.excludeNamespaces.includes(r.metadata!.name)
       ) {
         continue;
       }
@@ -93,13 +93,13 @@ async function main() {
       if (
         r.kind === "Namespace" &&
         r.apiVersion === "v1" &&
-        r.metadata.name === "default"
+        r.metadata!.name === "default"
       ) {
         continue;
       }
 
       serverSideClusterScopedResources.push({
-        name: r.metadata.name,
+        name: r.metadata!.name,
         kind: r.kind,
         apiVersion: r.apiVersion,
       });
@@ -199,6 +199,12 @@ interface kubernetesGenericManifest {
 interface kubernetesMetadata {
   name: string;
   namespace?: string;
+}
+
+interface kubernetesList {
+  apiVersion: "v1";
+  kind: "List";
+  items: kubernetesGenericManifest[];
 }
 
 function isManifest(arg: any): arg is kubernetesGenericManifest {
@@ -347,11 +353,10 @@ async function execCommand(c: Deno.Command): Promise<string> {
   return decoder.decode(o.stdout);
 }
 
-// FIXME: returns any
 async function getKubernetesNamespacedResources(
   fullKind: string,
   namespace: string
-): Promise<any> {
+): Promise<kubernetesList> {
   const apiVersion = fullKind.split(":")[0];
   const kind = fullKind.split(":")[1];
 
@@ -373,10 +378,9 @@ async function getKubernetesNamespacedResources(
   return yaml.parse(out) as any;
 }
 
-// FIXME: returns any
 async function getKubernetesClsuterScopedResources(
   fullKind: string
-): Promise<any> {
+): Promise<kubernetesList> {
   // ClusterScoped なリソースは -n=default で検索しても取得できるので、サボる
   const res = await getKubernetesNamespacedResources(fullKind, "default");
   return res;
