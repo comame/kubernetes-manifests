@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-explicit-any
+
 import { parse, stringify } from "jsr:@std/yaml";
 
 const { args, readTextFile, writeTextFile } = Deno;

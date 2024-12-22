@@ -148,7 +148,7 @@ async function main() {
 // ====
 
 /** --plan なのか --apply なのかを判定する */
-function isApplyMode(): boolean {
+function _isApplyMode(): boolean {
   const { plan, apply } = flags.parse(Deno.args);
   if (plan) {
     return false;
