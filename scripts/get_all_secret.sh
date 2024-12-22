@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# バックアップ用に Secret を取得する
+
 DATE=$(date +%Y%m%d-%H%M%S)
 FILENAME="secrets-$DATE.yaml"
 
