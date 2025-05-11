@@ -114,6 +114,13 @@ spec:
                 name: crazybuz
                 port:
                   number: 80
+          - path: /clock
+            pathType: Prefix
+            backend:
+              service:
+                name: clock
+                port:
+                  number: 80
     - host: livestream.comame.xyz
       http:
         paths:
@@ -320,3 +327,13 @@ metadata:
 spec:
   type: ExternalName
   externalName: note-comame-xyz.comame-xyz.svc.cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clock
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: clock.comame-xyz.svc.cluster.local

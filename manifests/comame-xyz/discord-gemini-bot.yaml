@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: discord-gemini-bot
+  namespace: comame-xyz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord-gemini-bot
+  serviceName: discord-gemini-bot
+  template:
+    metadata:
+      labels:
+        app: discord-gemini-bot
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: discord-gemini-bot
+          image: registry.comame.dev/discord-gemini-bot:latest
+          imagePullPolicy: Always
+          env:
+            - name: DISCORD_BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: discord-gemini-bot
+                  key: discord_bot_token
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: discord-gemini-bot
+                  key: gemini_api_key
