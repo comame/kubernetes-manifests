@@ -9,8 +9,8 @@ resource "helm_release" "metallb" {
 
   # https://metallb.io/troubleshooting/#metallb-is-not-advertising-my-service-from-my-control-plane-nodes-or-from-my-single-node-cluster
   # コントロールプレーンノードのラベルにより広告されない問題が起きないようにした
-  set {
+  set = [{
     name  = "speaker.ignoreExcludeLB"
     value = true
-  }
+  }]
 }
