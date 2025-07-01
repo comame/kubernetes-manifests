@@ -1,3 +1,13 @@
+locals {
+  config = {
+    controller = {
+      config = {
+        "use-forwarded-headers" = true
+      }
+    }
+  }
+}
+
 # アップグレード時は Controller のバージョンも上げること
 resource "helm_release" "ingress-nginx" {
   name       = "ingress-nginx"
@@ -7,4 +17,6 @@ resource "helm_release" "ingress-nginx" {
 
   namespace        = "ingress-nginx"
   create_namespace = true
+
+  values = [yamlencode(local.config)]
 }
