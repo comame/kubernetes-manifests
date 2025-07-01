@@ -28,6 +28,8 @@ spec:
             value: https://accounts.comame.xyz
           - name: ORIGIN
             value: https://note.comame.xyz
+          - name: REDIS_ADDR
+            value: redis.comame.dev:6379
         envFrom:
           - secretRef:
               name: note-comame-xyz
