@@ -1,0 +1,31 @@
+# controller のログに表示される以下のエラーのワークアラウンド
+#
+# ```
+# error retrieving resource lock ingress-nginx/ingress-controller-leader: leases.coordination.k8s.io "ingress-controller-leader" is forbidden: User "system:serviceaccount:ingress-nginx:ingress-nginx" cannot get resource "leases" in API group "coordination.k8s.io" in the namespace "ingress-nginx"
+# ```
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ingress-nginx-lease
+  namespace: ingress-nginx
+rules:
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["create", "delete", "deletecollection", "get", "list", "patch", "update"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ingress-nginx-lease
+  namespace: ingress-nginx
+subjects:
+  - kind: ServiceAccount
+    name: ingress-nginx
+    namespace: ingress-nginx
+roleRef:
+  kind: Role
+  name: ingress-nginx-lease
+  apiGroup: rbac.authorization.k8s.io

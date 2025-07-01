@@ -20,6 +20,7 @@ spec:
           image: registry.k8s.io/ingress-nginx/controller:v1.12.3
           args:
             - /nginx-ingress-controller
+            - '--election-id=$(POD_NAME)'
             - '--controller-class=k8s.io/ingress-external'
             - '--configmap=$(POD_NAMESPACE)/ingress-nginx-controller'
           ports:
