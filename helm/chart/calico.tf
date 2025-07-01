@@ -4,7 +4,7 @@ resource "helm_release" "calico" {
   name       = "calico"
   repository = "https://docs.tigera.io/calico/charts"
   chart      = "tigera-operator"
-  version    = "3.29.1"
+  version    = "3.30.2"
 
   namespace        = "tigera-operator"
   create_namespace = true
