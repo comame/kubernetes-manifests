@@ -23,8 +23,7 @@ spec:
       imagePullSecrets:
         - name: regcred
       containers:
-        # https://github.com/comame/CloudFlare-DDNS
-        - image: registry.comame.dev/ddns
+        - image: registry.comame.dev/ddns/ddns:latest
           name: ddns
           env:
             - name: CLOUDFLARE_API_TOKEN
