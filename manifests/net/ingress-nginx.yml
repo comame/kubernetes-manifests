@@ -12,7 +12,7 @@ metadata:
 rules:
   - apiGroups: ["coordination.k8s.io"]
     resources: ["leases"]
-    verbs: ["create", "delete", "deletecollection", "get", "list", "patch", "update"]
+    verbs: ["create", "get", "update"]
 
 ---
 
@@ -29,3 +29,15 @@ roleRef:
   kind: Role
   name: ingress-nginx-lease
   apiGroup: rbac.authorization.k8s.io
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-cm
+  namespace: ingress-nginx
+data:
+  # X-Forwarded-For を設定
+  # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#use-forwarded-headers
+  use-forwarded-headers: "true"

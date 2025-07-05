@@ -22,7 +22,10 @@ spec:
             - /nginx-ingress-controller
             - '--election-id=$(POD_NAME)'
             - '--controller-class=k8s.io/ingress-external'
-            - '--configmap=$(POD_NAMESPACE)/ingress-nginx-controller'
+            - '--configmap=$(POD_NAMESPACE)/ingress-nginx-cm'
+            - '--validating-webhook=:8443'
+            - '--validating-webhook-certificate=/usr/local/certificates/cert'
+            - '--validating-webhook-key=/usr/local/certificates/key'
           ports:
             - name: http
               containerPort: 80
