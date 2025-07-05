@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dhcp
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dhcp
+  namespace: dhcp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dhcp
+  template:
+    metadata:
+      labels:
+        app: dhcp
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: dhcp
+          image: registry.comame.dev/dhcp/dhcp:latest
+          ports:
+            - containerPort: 67
+              protocol: UDP
+          volumeMounts:
+            - mountPath: /home/dhcp/leases
+              name: dhcp-leases
+            - mountPath: /home/dhcp/conf
+              name: dhcp-conf
+      volumes:
+        - name: dhcp-leases
+          hostPath:
+            path: /home/comame/dhcp-leases
+        - name: dhcp-conf
+          configMap:
+            name: dhcp-conf
+      hostNetwork: true
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dhcp-conf
+  namespace: dhcp
+data:
+  dhcpd.conf: |
+    option domain-name-servers 8.8.8.8;
+
+    default-lease-time 600;
+    max-lease-time 7200;
+
+    ddns-update-style none;
+
+    authoritative;
+
+    subnet 192.168.0.0 netmask 255.255.0.0 {
+      range 192.168.10.11 192.168.10.200;
+      option routers 192.168.0.99;
+      option subnet-mask 255.255.0.0;
+      option broadcast-address 192.168.255.255;
+    }
+
+    host d1 {
+      hardware ethernet 2c:f0:5d:5a:fd:52;
+      fixed-address 192.168.0.3;
+    }
+
+    host s1 {
+      hardware ethernet f0:2f:74:88:fc:b6;
+      fixed-address 192.168.0.10;
+    }
