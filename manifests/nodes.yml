@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: s1
+  annotations:
+    csi.volume.kubernetes.io/nodeid: '{"csi.tigera.io":"s1"}'
+    kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
+    node.alpha.kubernetes.io/ttl: "0"
+    projectcalico.org/IPv4Address: 192.168.0.10/13
+    projectcalico.org/IPv4IPIPTunnelAddr: 10.244.152.206
+    volumes.kubernetes.io/controller-managed-attach-detach: "true"
+  labels:
+    beta.kubernetes.io/arch: amd64
+    beta.kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    kubernetes.io/hostname: s1
+    kubernetes.io/os: linux
+    node-role.kubernetes.io/control-plane: ""
+    node.kubernetes.io/exclude-from-external-load-balancers: ""
+    network-type: home-master
+spec:
+  podCIDR: 10.244.0.0/24
+  podCIDRs:
+    - 10.244.0.0/24

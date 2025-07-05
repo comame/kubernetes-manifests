@@ -41,6 +41,8 @@ spec:
           configMap:
             name: dhcp-conf
       hostNetwork: true
+      nodeSelector:
+        network-type: home-master
 
 ---
 
