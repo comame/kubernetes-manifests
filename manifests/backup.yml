@@ -1,0 +1,98 @@
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: backup
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: backup
+  namespace: backup
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: backup-role
+rules:
+  - apiGroups: [""]
+    resources: ["secrets", "namespaces"]
+    verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: backup-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: backup
+    namespace: backup
+roleRef:
+  kind: ClusterRole
+  name: backup-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backup-config
+  namespace: backup
+data:
+  GOOGLE_DRIVE_PARENT_ID: 0ABVkIFKFNztZUk9PVA
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup
+  namespace: backup
+spec:
+  schedule: "0 13 1 * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec: # JobSpec
+      template: # PodTemplateSpec
+        metadata:
+          labels:
+            app: backup
+        spec:
+          serviceAccountName: backup
+          containers:
+            - name: backup
+              image: registry.comame.dev/backup/backup:latest
+              env:
+                - name: MYSQL_ROOT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: backup
+                      key: MYSQL_ROOT_PASSWORD
+                - name: GOOGLE_SA_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: backup
+                      key: GOOGLE_SA_KEY
+                - name: GOOGLE_DRIVE_PARENT_ID
+                  valueFrom:
+                    configMapKeyRef:
+                      name: backup-config
+                      key: GOOGLE_DRIVE_PARENT_ID
+              volumeMounts:
+                - mountPath: /mnt/registry
+                  name: registry
+                  readOnly: true
+          volumes:
+            - name: registry
+              hostPath:
+                path: /home/comame/registry
+          imagePullSecrets:
+            - name: regcred
+          restartPolicy: OnFailure
