@@ -35,7 +35,7 @@ spec:
           - name: SMB_SHARENAME
             value: iTunes
           - name: ITUNES_LOCATION_PREFIX
-            value: file://localhost/C:/Users/comame/Music/iTunes
+            value: file://localhost/C:/Users/comame/Music/Library
       imagePullSecrets:
         - name: regcred
       volumes:
