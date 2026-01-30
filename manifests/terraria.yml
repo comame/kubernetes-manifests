@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: terraria
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: terraria
+  namespace: terraria
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: terraria
+  template:
+    metadata:
+      labels:
+        app: terraria
+    spec:
+      containers:
+        - image: registry.comame.dev/terraria-server:latest
+          name: terraria
+          ports:
+            - containerPort: 7777
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: terraria
+          volumeMounts:
+            - mountPath: /home/terraria/worlds
+              name: volume
+          resources:
+            limits:
+              cpu: "1"
+      volumes:
+        - name: volume
+          hostPath:
+            path: /home/comame/terraria-worlds
+      imagePullSecrets:
+        - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: terraria
+  namespace: terraria
+spec:
+  ports:
+    - port: 7777
+      targetPort: 7777
+      protocol: TCP
+      name: tcp
+    - port: 7777
+      targetPort: 7777
+      protocol: UDP
+      name: udp
+  selector:
+    app: terraria
+  type: LoadBalancer
+  loadBalancerIP: 192.168.0.152
