@@ -6,7 +6,7 @@ metadata:
     csi.volume.kubernetes.io/nodeid: '{"csi.tigera.io":"s1"}'
     kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
     node.alpha.kubernetes.io/ttl: "0"
-    projectcalico.org/IPv4Address: 192.168.0.10/13
+    projectcalico.org/IPv4Address: 192.168.0.10/16
     projectcalico.org/IPv4IPIPTunnelAddr: 10.244.152.206
     volumes.kubernetes.io/controller-managed-attach-detach: "true"
   labels:
