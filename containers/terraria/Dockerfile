@@ -6,9 +6,9 @@ RUN apt-get update && \
 
 USER terraria
 WORKDIR /home/terraria
-RUN wget https://terraria.org/api/download/pc-dedicated-server/terraria-server-1451.zip && \
-    unzip terraria-server-1451.zip && \
-    chmod +x 1451/Linux/TerrariaServer.bin.x86_64
+RUN wget https://terraria.org/api/download/pc-dedicated-server/terraria-server-1453.zip && \
+    unzip terraria-server-1453.zip && \
+    chmod +x 1453/Linux/TerrariaServer.bin.x86_64
 
 COPY entrypoint.sh /home/terraria/entrypoint.sh
 
