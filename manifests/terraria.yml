@@ -20,7 +20,7 @@ spec:
         app: terraria
     spec:
       containers:
-        - image: registry.comame.dev/terraria-server:v1.4.5.3
+        - image: registry.comame.dev/terraria-server:v1.4.5.4
           name: terraria
           ports:
             - containerPort: 7777
