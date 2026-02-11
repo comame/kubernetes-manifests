@@ -19,13 +19,18 @@ async function getLatestVersion(): Promise<string> {
 
 async function main() {
     const version = await getLatestVersion();
-    console.log(`${version} にアップデート`);
+    console.error(`${version} にアップデート`);
 
     const dockerfile = dockerfileTemplate.replaceAll('<version>', version);
     const entrypoint = entrypointTemplate.replaceAll('<version>', version);
 
     await Deno.writeTextFile(import.meta.dirname+'/Dockerfile', dockerfile);
     await Deno.writeTextFile(import.meta.dirname+'/entrypoint.sh', entrypoint);
+
+    const image = `registry.comame.dev/terraria-server:v${version}`;
+
+    console.log(`docker build -t ${image} containers/terraria`)
+    console.log(`docker push ${image}`)
 }
 
 main()
