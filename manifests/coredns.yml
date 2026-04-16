@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: coredns
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: coredns
+  namespace: coredns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coredns
+  template:
+    metadata:
+      labels:
+        app: coredns
+    spec:
+      containers:
+        - image: coredns/coredns:latest
+          name: coredns
+          ports:
+            - containerPort: 53
+              protocol: UDP
+            - containerPort: 53
+              protocol: TCP
+          args: ["-conf", "/etc/coredns/Corefile"]
+          volumeMounts:
+            - mountPath: /etc/coredns
+              name: config
+      volumes:
+        - name: config
+          configMap:
+            name: corefile
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coredns
+  namespace: coredns
+spec:
+  selector:
+    app: coredns
+  ports:
+    - protocol: UDP
+      port: 53
+      targetPort: 53
+      name: udp
+    - protocol: TCP
+      port: 53
+      targetPort: 53
+      name: tcp
+  loadBalancerIP: 192.168.0.153
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: corefile
+  namespace: coredns
+data:
+  Corefile: |+
+    . {
+        reload
+        log
+        errors
+
+        hosts {
+            192.168.0.200 comame.xyz
+            192.168.0.200 accounts.comame.xyz
+            192.168.0.200 dash.accounts.comame.xyz
+            fallthrough
+        }
+
+        forward . 192.168.0.1
+    }
