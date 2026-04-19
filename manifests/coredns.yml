@@ -76,6 +76,7 @@ data:
             192.168.0.200 comame.xyz
             192.168.0.200 accounts.comame.xyz
             192.168.0.200 dash.accounts.comame.xyz
+            192.168.0.200 note.comame.xyz
             fallthrough
         }
 
