@@ -1,0 +1,24 @@
+comame.xyz:
+  - CNAME	blog	cname.vercel-dns.com
+  - CNAME	*	comame.xyz
+  - CNAME	status	comame.github.io
+  - MX	comame.xyz	aspmx.l.google.com
+  - MX	comame.xyz	alt1.aspmx.l.google.com
+  - MX	comame.xyz	alt2.aspmx.l.google.com
+  - MX	comame.xyz	alt3.aspmx.l.google.com
+  - MX	comame.xyz	alt4.aspmx.l.google.com
+  - MX	ml	smtp.google.com
+  - TXT	comame.xyz	v=spf1 include:_spf.google.com ~all
+comame.dev:
+  - A	d1	192.168.3.10
+  - A	s1	192.168.0.10
+  - A	wifi	192.168.0.40
+  - A	ingress	192.168.0.200
+  - A	ingress-internal	192.168.0.190
+  - A	livestream	192.168.0.163
+  - A	mysql	192.168.0.160
+  - A	redis	192.168.0.170
+  - CNAME	natsume	d1.comame.dev
+  - CNAME	dash.registry	ingress-internal.comame.dev
+  - CNAME	registry	ingress-internal.comame.dev
+  - CNAME	registry	ingress-internal.comame.dev
