@@ -60,6 +60,7 @@ spec:
 
 ---
 
+# IPv4 Loadbalancer IP
 apiVersion: v1
 kind: Service
 metadata:
@@ -74,6 +75,38 @@ spec:
   type: LoadBalancer
   ipFamilies:
     - IPv4
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+      appProtocol: http
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: https
+      appProtocol: https
+  selector:
+    app: ingress-nginx-controller
+    class: external
+
+---
+
+# IPv6 Loadbalacner IP
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    app: ingress-nginx-controller
+  name: ingress-external-ipv6
+  namespace: ingress-nginx
+spec:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  ipFamilies:
+    - IPv6
+  loadBalancerIP: 2409:10:6b00:3f0:8888::200
   ports:
     - name: http
       port: 80
