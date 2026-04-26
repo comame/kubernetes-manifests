@@ -106,6 +106,7 @@ spec:
   type: LoadBalancer
   ipFamilies:
     - IPv6
+  loadBalancerIP: 2409:10:6b00:3f0:8888::200
   ports:
     - name: http
       port: 80

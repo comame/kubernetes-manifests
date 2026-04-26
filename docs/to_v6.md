@@ -51,5 +51,6 @@ https://kubernetes.io/docs/concepts/services-networking/dual-stack/#configure-ip
 
 - IPAddressPool に ISP から割り当てられた GUA を設定する
   - `type: Loadbalancer` の Service を `ipFamilyPolicy: PreferDualStack` にすると、IPv6 アドレスが割り当てられる
+    - LoadbalancerIP に IPv4 アドレスを指定したままだと、正しく IPv6 アドレスが割り当てられない。この場合は[アノテーションを利用して複数の IP アドレスを要求する](https://metallb.universe.tf/usage/#ipv6-and-dual-stack-services)か、IPv4 と IPv6 で独立した Service に分割すると良さそう
   - 自宅内からは接続できるようになったが、インターネットから接続できない
     - HGW 側のファイアウォールが悪さをしていた、見落としがち
