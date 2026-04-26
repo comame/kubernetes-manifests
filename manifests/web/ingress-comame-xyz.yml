@@ -85,6 +85,7 @@ spec:
         - livestream.comame.xyz
         - music.comame.xyz
         - note.comame.xyz
+        - echo.comame.xyz
       secretName: comame-xyz-norewrite
   rules:
     - host: discordbot.comame.xyz
@@ -205,6 +206,16 @@ spec:
             backend:
               service:
                 name: note-comame-xyz
+                port:
+                  number: 8080
+    - host: echo.comame.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: echo
                 port:
                   number: 8080
 
@@ -337,3 +348,13 @@ metadata:
 spec:
   type: ExternalName
   externalName: clock.comame-xyz.svc.cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo
+  namespace: web
+spec:
+  type: ExternalName
+  externalName: echo.comame-xyz.svc.cluster.local
